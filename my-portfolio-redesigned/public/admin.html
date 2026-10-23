@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portfolio Admin</title>
+<style>
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface-soft: #f1f1ee;
+  --border: #e5e5e0;
+  --text: #171717;
+  --text-soft: #6b6b67;
+  --accent: #222222;
+  --accent-hover: #000000;
+  --danger: #b33a3a;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 { margin: 0 0 12px; letter-spacing: -0.02em; }
+h1 { font-size: 28px; font-weight: 650; }
+h2 { font-size: 20px; font-weight: 650; }
+h3 { font-size: 18px; font-weight: 600; }
+h4 { font-size: 15px; font-weight: 600; }
+p  { margin: 0 0 10px; }
+
+.hidden { display: none !important; }
+
+/* ---------- Layout ---------- */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  padding: 28px 20px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar h2 { margin-bottom: 18px; padding-left: 12px; }
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 40px;
+  max-width: 900px;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.card h3 { margin-bottom: 18px; }
+
+.card p { color: var(--text); }
+
+.msg-meta {
+  color: var(--text-soft);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+/* ---------- Forms ---------- */
+label {
+  display: block;
+  margin: 16px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+label:first-of-type { margin-top: 0; }
+
+input, textarea, select {
+  width: 100%;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #999994;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+textarea { min-height: 100px; resize: vertical; }
+
+/* ---------- Buttons ---------- */
+button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 550;
+  border-radius: 10px;
+  padding: 9px 18px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+button:hover {
+  background: var(--surface-soft);
+  border-color: #cfcfca;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* main action (Save, Add, Log in) */
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+button.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+/* delete */
+button.danger {
+  color: var(--danger);
+  border-color: #e5b3b3;
+}
+button.danger:hover {
+  background: #fdf2f2;
+  border-color: var(--danger);
+}
+
+/* group of buttons with even spacing */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* sidebar tabs */
+.nav-btn {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  padding: 10px 12px;
+  border-radius: 9px;
+}
+.nav-btn:hover { background: var(--surface-soft); color: var(--text); }
+.nav-btn.active {
+  background: #eeeeeb;
+  color: var(--text);
+  font-weight: 650;
+}
+
+/* ---------- Project card ---------- */
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+}
+.tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: #555550;
+}
+
+/* ---------- Skills ---------- */
+.skill-category-block { margin-bottom: 24px; }
+.skill-pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 14px;
+}
+.skill-pill button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface-soft);
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1;
+}
+.skill-pill button:hover { background: #f3d6d6; color: var(--danger); }
+
+/* ---------- Login ---------- */
+#login-screen {
+  max-width: 400px;
+  margin: 12vh auto 0;
+  padding: 32px;
+}
+#login-screen h1 { margin-bottom: 20px; }
+#login-screen button { width: 100%; margin-top: 18px; padding: 11px; }
+#error { color: var(--danger); font-size: 14px; margin-top: 12px; min-height: 20px; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar h2 { width: 100%; margin-bottom: 8px; }
+  .nav-btn { width: auto; }
+  .content { padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div id="login-screen" class="card">
+  <h1>Admin Login</h1>
+  <label for="password">Admin password</label>
+  <input id="password" type="password" placeholder="Enter password" />
+  <button class="primary" onclick="login()">Log in</button>
+  <div id="error"></div>
+</div>
+
+<div id="dashboard" class="layout hidden">
+  <div class="sidebar">
+    <h2>Portfolio Admin</h2>
+    <button id="tab-projects" class="nav-btn active" onclick="showTab('projects')">Projects</button>
+    <button id="tab-skills" class="nav-btn" onclick="showTab('skills')">Skills</button>
+    <button id="tab-messages" class="nav-btn" onclick="showTab('messages')">Messages</button>
+  </div>
+
+  <div class="content">
+    <div id="projects-view">
+      <div class="card">
+        <h3 id="form-title">Add new project</h3>
+        <input type="hidden" id="project-id" />
+
+        <label for="project-title">Title</label>
+        <input id="project-title" placeholder="Project title" />
+
+        <label for="project-description">Description</label>
+        <textarea id="project-description" rows="3" placeholder="Short description"></textarea>
+
+        <label for="project-tech">Tech (comma separated, e.g. Python,FastAPI,PostgreSQL)</label>
+        <input id="project-tech" placeholder="Python,FastAPI,PostgreSQL" />
+
+        <label for="project-link">GitHub link</label>
+        <input id="project-link" placeholder="https://github.com/..." />
+
+        <div class="actions">
+          <button class="primary" onclick="saveProject()">Save project</button>
+          <button onclick="resetForm()">Cancel</button>
+        </div>
+      </div>
+      <div id="projects-list"></div>
+    </div>
+
+    <div id="skills-view" class="hidden">
+      <div class="card">
+        <h3>Add new skill</h3>
+
+        <label for="skill-category">Category</label>
+        <input id="skill-category" list="category-options" placeholder="e.g. Programming Languages" />
+        <datalist id="category-options">
+          <option value="Programming Languages"></option>
+          <option value="Web Development"></option>
+          <option value="Databases"></option>
+        </datalist>
+
+        <label for="skill-name">Skill name</label>
+        <input id="skill-name" placeholder="e.g. Python" />
+
+        <div class="actions">
+          <button class="primary" onclick="addSkill()">Add skill</button>
+        </div>
+      </div>
+      <div id="skills-list"></div>
+    </div>
+
+    <div id="messages-view" class="hidden">
+      <div id="messages-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = "http://localhost:8000";
+let password = "";
+let projectsById = {};
+
+function esc(str) {
+  return String(str ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+async function api(path, options = {}) {
+  const res = await fetch(API + path, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      "X-Admin-Password": password,
+      ...(options.headers || {}),
+    },
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.detail || `Request failed (${res.status})`);
+  }
+  if (res.status === 204) return null;
+  return res.json();
+}
+
+async function login() {
+  password = document.getElementById("password").value;
+  document.getElementById("error").textContent = "";
+  try {
+    await api("/api/admin/login", { method: "POST" });
+    document.getElementById("login-screen").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+    loadProjects();
+  } catch (err) {
+    document.getElementById("error").textContent = "Wrong password.";
+  }
+}
+
+function showTab(tab) {
+  ["projects", "skills", "messages"].forEach((t) => {
+    document.getElementById(`tab-${t}`).classList.toggle("active", t === tab);
+    document.getElementById(`${t}-view`).classList.toggle("hidden", t !== tab);
+  });
+  if (tab === "messages") loadMessages();
+  if (tab === "skills") loadSkills();
+}
+
+/* Projects */
+
+function resetForm() {
+  document.getElementById("project-id").value = "";
+  document.getElementById("project-title").value = "";
+  document.getElementById("project-description").value = "";
+  document.getElementById("project-tech").value = "";
+  document.getElementById("project-link").value = "";
+  document.getElementById("form-title").textContent = "Add new project";
+}
+
+async function loadProjects() {
+  const projects = await api("/api/projects");
+  projectsById = {};
+  const list = document.getElementById("projects-list");
+  list.innerHTML = "";
+  projects.forEach((p) => {
+    projectsById[p.id] = p;
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.description)}</p>
+      <div class="project-tech">
+        ${(p.tech || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}
+      </div>
+      <div class="actions">
+        <button onclick="editProject(${p.id})">Edit</button>
+        <button class="danger" onclick="deleteProject(${p.id})">Delete</button>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function editProject(id) {
+  const p = projectsById[id];
+  if (!p) return;
+  document.getElementById("project-id").value = p.id;
+  document.getElementById("project-title").value = p.title;
+  document.getElementById("project-description").value = p.description || "";
+  document.getElementById("project-tech").value = (p.tech || []).join(",");
+  document.getElementById("project-link").value = p.github_link || "";
+  document.getElementById("form-title").textContent = "Edit project #" + p.id;
+  window.scrollTo(0, 0);
+}
+
+async function saveProject() {
+  const id = document.getElementById("project-id").value;
+  const payload = {
+    title: document.getElementById("project-title").value,
+    description: document.getElementById("project-description").value,
+    tech: document.getElementById("project-tech").value,
+    github_link: document.getElementById("project-link").value,
+  };
+  if (!payload.title) return alert("Title is required");
+
+  if (id) {
+    await api(`/api/admin/projects/${id}`, { method: "PUT", body: JSON.stringify(payload) });
+  } else {
+    await api("/api/admin/projects", { method: "POST", body: JSON.stringify(payload) });
+  }
+  resetForm();
+  loadProjects();
+}
+
+async function deleteProject(id) {
+  if (!confirm("Delete this project?")) return;
+  await api(`/api/admin/projects/${id}`, { method: "DELETE" });
+  loadProjects();
+}
+
+/* Skills */
+
+async function loadSkills() {
+  const skills = await api("/api/skills");
+  const grouped = {};
+  skills.forEach((s) => {
+    if (!grouped[s.category]) grouped[s.category] = [];
+    grouped[s.category].push(s);
+  });
+
+  const list = document.getElementById("skills-list");
+  list.innerHTML = "";
+  Object.entries(grouped).forEach(([category, items]) => {
+    const block = document.createElement("div");
+    block.className = "skill-category-block";
+    block.innerHTML = `
+      <h4>${esc(category)}</h4>
+      <div class="skill-pill-row">
+        ${items.map((s) => `
+          <span class="skill-pill">
+            ${esc(s.name)}
+            <button onclick="deleteSkill(${s.id})" aria-label="Delete skill">×</button>
+          </span>
+        `).join("")}
+      </div>
+    `;
+    list.appendChild(block);
+  });
+}
+
+async function addSkill() {
+  const category = document.getElementById("skill-category").value.trim();
+  const name = document.getElementById("skill-name").value.trim();
+  if (!category || !name) return alert("Category and skill name are required");
+
+  await api("/api/admin/skills", { method: "POST", body: JSON.stringify({ category, name }) });
+  document.getElementById("skill-name").value = "";
+  loadSkills();
+}
+
+async function deleteSkill(id) {
+  await api(`/api/admin/skills/${id}`, { method: "DELETE" });
+  loadSkills();
+}
+
+/* Messages */
+
+async function loadMessages() {
+  const messages = await api("/api/admin/messages");
+  const list = document.getElementById("messages-list");
+  list.innerHTML = "";
+  if (messages.length === 0) {
+    list.innerHTML = "<p>No messages yet.</p>";
+    return;
+  }
+  messages.forEach((m) => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <div class="msg-meta">#${m.id} — ${esc(m.name)} (${esc(m.email)})</div>
+      <p>${esc(m.message)}</p>
+      <div class="actions">
+        <button class="danger" onclick="deleteMessage(${m.id})">Delete</button>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+async function deleteMessage(id) {
+  if (!confirm("Delete this message?")) return;
+  await api(`/api/admin/messages/${id}`, { method: "DELETE" });
+  loadMessages();
+}
+</script>
+</body>
+</html>
