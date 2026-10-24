@@ -187,8 +187,8 @@ export default function App() {
                 Tambov State Technical University
               </p>
               <div className="note-bottom">
-                <span>09.03.01</span>
                 <span>TSTU</span>
+                <span>09.03.01</span>
               </div>
             </aside>
           </div>
