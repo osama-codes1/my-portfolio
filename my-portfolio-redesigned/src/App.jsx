@@ -177,7 +177,7 @@ export default function App() {
 
             <aside className="hero-note">
               <div className="note-top">
-                <span>01</span>
+              
                 <span>About me</span>
               </div>
               <div className="note-rule" />
