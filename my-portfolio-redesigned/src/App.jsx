@@ -213,7 +213,7 @@ export default function App() {
           <Reveal className="wrap">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">01 — Background</p>
+                <p className="eyebrow">Background</p>
                 <h2 className="section-title">Education</h2>
               </div>
               <p className="section-sub">Current academic path</p>
@@ -235,7 +235,7 @@ export default function App() {
           <Reveal className="wrap">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">02 — Toolbox</p>
+                <p className="eyebrow">Toolbox</p>
                 <h2 className="section-title">Technical Skills</h2>
               </div>
               <p className="section-sub">Languages and tools I work with</p>
@@ -248,7 +248,7 @@ export default function App() {
           <Reveal className="wrap">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">03 — Communication</p>
+                <p className="eyebrow">Communication</p>
                 <h2 className="section-title">Spoken Languages</h2>
               </div>
               <p className="section-sub">Communicating in three languages</p>
@@ -275,7 +275,7 @@ export default function App() {
           <Reveal className="wrap">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">04 — Selected work</p>
+                <p className="eyebrow">Selected work</p>
                 <h2 className="section-title">Projects</h2>
               </div>
               <p className="section-sub">Work in progress</p>
@@ -288,7 +288,7 @@ export default function App() {
           <Reveal className="wrap">
             <div className="contact-intro">
               <div>
-                <p className="eyebrow">05 — Contact</p>
+                <p className="eyebrow">Contact</p>
                 <h2 className="section-title">Let’s talk.</h2>
               </div>
               <p className="section-sub">
