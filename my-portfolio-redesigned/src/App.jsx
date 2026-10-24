@@ -118,7 +118,7 @@ export default function App() {
       <nav>
         <div className="nav-in">
           <a href="#top" className="logo" aria-label="Osama home">
-            OSAMA ALBISHAI
+            OSAMA ALBISHARI
           </a>
 
           <ul className="nav-links">
@@ -145,7 +145,7 @@ export default function App() {
               </div>
 
               <h1>
-                Hello, I&apos;m <span>   Osama ALBISHAI</span>
+                Hello, I&apos;m <span>   Osama ALBISHARI</span>
                 <br />
                 a Computer Science student &amp; developer
               </h1>
@@ -326,7 +326,7 @@ export default function App() {
 
       <footer>
         <div className="wrap">
-          <span>© 2026 Osama ALBISHAI</span>
+          <span>© 2026 Osama ALBISHARI</span>
           <span>Designed &amp; built with care.</span>
         </div>
       </footer>
