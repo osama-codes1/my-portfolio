@@ -145,7 +145,7 @@ export default function App() {
               </div>
 
               <h1>
-                Hello, I&apos;m <span>   Osama ALBASHARI</span>
+                Hello, I&apos;m <span>   Osama ALBISHAI</span>
                 <br />
                 a Computer Science student &amp; developer
               </h1>
@@ -326,7 +326,7 @@ export default function App() {
 
       <footer>
         <div className="wrap">
-          <span>© 2026 Osama AL-BASHARI</span>
+          <span>© 2026 Osama ALBISHAI</span>
           <span>Designed &amp; built with care.</span>
         </div>
       </footer>
