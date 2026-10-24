@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // رابط الباك إند (FastAPI)
-const API_URL = 'https://osama-al-bashari.vercel.app';
+const API_URL = 'https://osama-api-nagz.onrender.com';
 
 // إنشاء نسخة axios مع الإعدادات
 const api = axios.create({
