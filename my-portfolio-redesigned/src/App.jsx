@@ -118,7 +118,7 @@ export default function App() {
       <nav>
         <div className="nav-in">
           <a href="#top" className="logo" aria-label="Osama home">
-            O<span>A</span>
+            OSAMA ALBISHAI
           </a>
 
           <ul className="nav-links">
