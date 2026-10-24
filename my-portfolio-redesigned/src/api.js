@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // رابط الباك إند (FastAPI)
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://osama-al-bashari.vercel.app';
 
 // إنشاء نسخة axios مع الإعدادات
 const api = axios.create({
